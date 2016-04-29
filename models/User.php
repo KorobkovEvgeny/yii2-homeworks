@@ -2,102 +2,125 @@
 
 namespace app\models;
 
-class User extends \yii\base\Object implements \yii\web\IdentityInterface
+use Yii;
+use yii\db\ActiveRecord;
+use yii\web\IdentityInterface;
+
+/**
+ * This is the model class for table "user".
+ *
+ * @property integer $id
+ * @property string $username
+ * @property string $name
+ * @property string $subname
+ * @property string $password
+ * @property string $salt
+ * @property string $access_token
+ * @property string $create_date
+ 
+ */
+class User extends ActiveRecord implements IdentityInterface
 {
-    public $id;
-    public $username;
-    public $password;
-    public $authKey;
-    public $accessToken;
-
-    private static $users = [
-        '100' => [
-            'id' => '100',
-            'username' => 'admin',
-            'password' => 'admin',
-            'authKey' => 'test100key',
-            'accessToken' => '100-token',
-        ],
-        '101' => [
-            'id' => '101',
-            'username' => 'demo',
-            'password' => 'demo',
-            'authKey' => 'test101key',
-            'accessToken' => '101-token',
-        ],
-    ];
-
     /**
      * @inheritdoc
      */
-    public static function findIdentity($id)
+    const MIN_PASS_LENGTH = 6;
+    const MAX_USER_NAME = 128;
+    const MAX_LOGIN = 45;
+    public static function tableName()
     {
-        return isset(self::$users[$id]) ? new static(self::$users[$id]) : null;
+        return 'user';
     }
 
     /**
      * @inheritdoc
      */
-    public static function findIdentityByAccessToken($token, $type = null)
+    public function rules()
     {
-        foreach (self::$users as $user) {
-            if ($user['accessToken'] === $token) {
-                return new static($user);
-            }
-        }
-
-        return null;
-    }
-
-    /**
-     * Finds user by username
-     *
-     * @param  string      $username
-     * @return static|null
-     */
-    public static function findByUsername($username)
-    {
-        foreach (self::$users as $user) {
-            if (strcasecmp($user['username'], $username) === 0) {
-                return new static($user);
-            }
-        }
-
-        return null;
+        return [
+            [['username', 'name', 'subname', 'password'], 'required'],
+            [['password'], 'string', 'min'=>  self::MIN_PASS_LENGTH],
+            [['username'], 'string', 'max' => self::MAX_USER_NAME],
+            [['name', 'subname'], 'string', 'max' => self::MAX_LOGIN],
+            [['access_token','username'], 'unique'],
+        ];
     }
 
     /**
      * @inheritdoc
      */
-    public function getId()
+    public function attributeLabels()
     {
+        return [
+            'id' => _('ID'),
+            'username' => _('Логин'),
+            'name' => _('Имя'),
+            'subname' => _('Фамилия'),
+            'password' => _('Пароль'),
+            'salt' => _('Соль'),
+            'access_token' => _('Ключ Авторизации'),
+        ];
+    }
+    public static function findIdentityByAccessToken($token, $type = null) {
+        return static::findOne(['access_token'=>$token]);
+    }
+    public function getId() {
         return $this->id;
     }
-
-    /**
-     * @inheritdoc
-     */
-    public function getAuthKey()
-    {
-        return $this->authKey;
+    public function getAuthKey() {
+        return $this->access_token;
     }
-
-    /**
-     * @inheritdoc
-     */
-    public function validateAuthKey($authKey)
-    {
-        return $this->authKey === $authKey;
+    public static function findIdentity($id) {
+        return static::findOne(['id'=>$id]);
     }
-
-    /**
-     * Validates password
-     *
-     * @param  string  $password password to validate
-     * @return boolean if password provided is valid for current user
-     */
-    public function validatePassword($password)
+    public function validateAuthKey($authKey) {
+        return $this->getAuthKey()===$authKey;
+    }
+    public function saltGenerator()
     {
-        return $this->password === $password;
+        return hash('sha512',  uniqid('salt_',true));
+    }
+    public function passWithSalt ($password, $salt)
+    {
+        return hash("sha512", $password . $salt);
+    }
+    public function beforeSave ($insert)
+    {
+        if (parent::beforeSave($insert))
+        {
+            if ($this->getIsNewRecord() && !empty($this->password))
+            {
+                $this->salt = $this->saltGenerator();
+            }
+            if (!empty($this->password))
+            {
+                $this->password = $this->passWithSalt($this->password, $this->salt);
+            }
+            else
+            {
+                unset($this->password);
+            }
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    public static function findByUsername ($username)
+    {
+        return static::findOne(['username' => $username]);
+    }
+    public function validatePassword ($password)
+    {
+        return $this->password === $this->passWithSalt($password, $this->salt);
+    }
+    public function setPassword ($password)
+    {
+        $this->password = $this->passWithSalt($password, $this->saltGenerator());
+    }
+    public function generateAuthKey ()
+    {
+        $this->access_token = Yii::$app->security->generateRandomString();
     }
 }
