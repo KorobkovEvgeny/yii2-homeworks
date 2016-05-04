@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\models\UserSearch */
+/* @var $searchModel app\models\search\UserSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = Yii::t('app', 'Users');
@@ -28,10 +28,18 @@ $this->params['breadcrumbs'][] = $this->title;
             'username',
             'name',
             'subname',
-            'password',
+            //'password',
             // 'salt',
             // 'access_token',
-            // 'create_date',
+            [
+                'attribute' => 'create_date',
+                'value' => 'create_date',
+                'filter' => \yii\jui\DatePicker::widget([
+                    'language' => 'ru',
+                    'dateFormat' => 'dd-MM-yyyy'
+                ]),
+                'format' => 'html'
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
