@@ -61,29 +61,41 @@ class User extends ActiveRecord implements IdentityInterface
             'access_token' => _('Ключ Авторизации'),
         ];
     }
+    /*Реализация IdentityInterface
+     * Запрос в БД для поиска конкретного access_token
+     */
     public static function findIdentityByAccessToken($token, $type = null) {
         return static::findOne(['access_token'=>$token]);
     }
+    //Получение id пользователя
     public function getId() {
         return $this->id;
     }
+    //Получение acess_token
     public function getAuthKey() {
         return $this->access_token;
     }
+    //Поиск записи о пользователе по id
     public static function findIdentity($id) {
         return static::findOne(['id'=>$id]);
     }
+    //валидация access_token
     public function validateAuthKey($authKey) {
         return $this->getAuthKey()===$authKey;
     }
+    /*Реализация IdentityInterface завершена*/
+    
+    //Генерация соли
     public function saltGenerator()
     {
         return hash('sha512',  uniqid('salt_',true));
     }
+    //Возвращение зашифрованного пароля
     public function passWithSalt ($password, $salt)
     {
         return hash("sha512", $password . $salt);
     }
+    //Действия выполняемые перед добавление нового пользователя
     public function beforeSave ($insert)
     {
         if (parent::beforeSave($insert))
@@ -107,18 +119,22 @@ class User extends ActiveRecord implements IdentityInterface
             return false;
         }
     }
+    //Поиск пользователя по имени
     public static function findByUsername ($username)
     {
         return static::findOne(['username' => $username]);
     }
+    //Валидация пароля
     public function validatePassword ($password)
     {
         return $this->password === $this->passWithSalt($password, $this->salt);
     }
+    //добавление соли к паролю
     public function setPassword ($password)
     {
         $this->password = $this->passWithSalt($password, $this->saltGenerator());
     }
+    // Генерация access_token
     public function generateAuthKey ()
     {
         $this->access_token = Yii::$app->security->generateRandomString();
