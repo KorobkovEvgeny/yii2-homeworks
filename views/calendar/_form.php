@@ -22,13 +22,14 @@ use dosamigos\datetimepicker\DateTimePicker;
     'size' => 'ms',
     //'template' => '{input}',
     'pickButtonIcon' => 'glyphicon glyphicon-time',
-    'inline' => true,
+    //'inline' => true,
     'clientOptions' => [
         'startView' => 1,
         'minView' => 0,
         'maxView' => 1,
         'autoclose' => true,
-        'linkFormat' => 'yyyy-mm-dd hh:ii:ss', // if inline = true
+        'pickerPosition'=>'bottom-left',
+        'format' => 'yyyy-mm-dd hh:ii:ss', // if inline = true
         // 'format' => 'HH:ii P', // if inline = false
         
     ]

@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use app\models\query\CalendarQuery;
 
 /**
  * This is the model class for table "calendar".
@@ -78,5 +79,15 @@ class Calendar extends \yii\db\ActiveRecord
     public static function find()
     {
         return new \app\models\query\CalendarQuery(get_called_class());
+    }
+    /**
+     * Return date in format for Access checking
+     *
+     * @return mixed
+     */
+    public function getDateEventStart()
+    {
+        $date = new \DateTime($this->date_event_start);
+        return $date->format('Y-m-d');
     }
 }

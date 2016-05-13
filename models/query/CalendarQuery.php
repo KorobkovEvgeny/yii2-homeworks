@@ -2,6 +2,7 @@
 
 namespace app\models\query;
 
+
 /**
  * This is the ActiveQuery class for [[\app\models\Calendar]].
  *
@@ -9,10 +10,26 @@ namespace app\models\query;
  */
 class CalendarQuery extends \yii\db\ActiveQuery
 {
-    /*public function active()
+   /**
+     * With Date for checking DATETIME by DATE
+     *
+     * @param $date
+     * @return $this
+     */
+    public function withDate($date)
     {
-        return $this->andWhere('[[status]]=1');
-    }*/
+        return $this->andWhere('date_event_start LIKE :date', [':date' => $date.'%']);
+    }
+
+    /**
+     * With Creator
+     *
+     * @param $id
+     * @return $this
+     */
+    public function withCreator($id){
+        return $this->andWhere('creator = :id', [':id' => $id]);
+    }
 
     /**
      * @inheritdoc
