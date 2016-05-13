@@ -2,6 +2,8 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use app\models;
+use dosamigos\datetimepicker\DateTimePicker;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Calendar */
@@ -14,9 +16,23 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'text')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'creator')->textInput() ?>
-
-    <?= $form->field($model, 'date_event')->textInput() ?>
+    
+    <?= $form->field($model, 'date_event')->widget(DateTimePicker::className(), [
+    'language' => 'ru',
+    'size' => 'ms',
+    //'template' => '{input}',
+    'pickButtonIcon' => 'glyphicon glyphicon-time',
+    'inline' => true,
+    'clientOptions' => [
+        'startView' => 1,
+        'minView' => 0,
+        'maxView' => 1,
+        'autoclose' => true,
+        'linkFormat' => 'yyyy-mm-dd hh:ii:ss', // if inline = true
+        // 'format' => 'HH:ii P', // if inline = false
+        
+    ]
+    ]) ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

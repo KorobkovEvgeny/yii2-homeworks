@@ -4,9 +4,71 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "7abc74314f02d36190f293721ba43c1e",
-    "content-hash": "661b0f8e3941f14a6cf11f14a1af3b60",
+    "hash": "65d29601788d863c048f81cf79036ee5",
+    "content-hash": "6dd1b2b44d480a91ae623b63fc934f5f",
     "packages": [
+        {
+            "name": "2amigos/yii2-date-time-picker-widget",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/2amigos/yii2-date-time-picker-widget.git",
+                "reference": "1248491c959d7080ab45c5284429e3d9222ed282"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/2amigos/yii2-date-time-picker-widget/zipball/1248491c959d7080ab45c5284429e3d9222ed282",
+                "reference": "1248491c959d7080ab45c5284429e3d9222ed282",
+                "shasum": ""
+            },
+            "require": {
+                "bower-asset/smalot-bootstrap-datetimepicker": "2.3.1",
+                "yiisoft/yii2": "~2.0",
+                "yiisoft/yii2-bootstrap": "~2.0.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.*",
+                "scrutinizer/ocular": "~1.1"
+            },
+            "type": "yii2-extension",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                },
+                "asset-installer-paths": {
+                    "bower-asset-library": "vendor/bower"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "dosamigos\\datetimepicker\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "2amigOS! Consulting Group",
+                    "email": "hola@2amigos.us",
+                    "homepage": "http://2amigos.us",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Bootstrap DateTimePicker widget for Yii2.",
+            "homepage": "http://yiiwheels.com/extension/bootstrap-datetimepicker",
+            "keywords": [
+                "2amigos",
+                "DateTimePicker",
+                "extension",
+                "widget",
+                "yii",
+                "yii 2",
+                "yii2"
+            ],
+            "time": "2015-04-02 10:59:30"
+        },
         {
             "name": "bower-asset/bootstrap",
             "version": "v3.3.6",
@@ -200,6 +262,39 @@
             }
         },
         {
+            "name": "bower-asset/smalot-bootstrap-datetimepicker",
+            "version": "2.3.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/smalot/bootstrap-datetimepicker.git",
+                "reference": "c893c91872d273bcea1bd806d03eb624c91a4cac"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/smalot/bootstrap-datetimepicker/zipball/c893c91872d273bcea1bd806d03eb624c91a4cac",
+                "reference": "c893c91872d273bcea1bd806d03eb624c91a4cac",
+                "shasum": ""
+            },
+            "type": "bower-asset-library",
+            "extra": {
+                "bower-asset-main": [
+                    "js/bootstrap-datetimepicker.min.js",
+                    "css/bootstrap-datetimepicker.min.css"
+                ],
+                "bower-asset-ignore": [
+                    "build",
+                    "sample in bootstrap v2",
+                    "sample in bootstrap v3",
+                    "screenshot",
+                    "tests",
+                    ".gitattributes",
+                    ".gitignore",
+                    ".travis.yml",
+                    "minify.sh"
+                ]
+            }
+        },
+        {
             "name": "bower-asset/yii2-pjax",
             "version": "v2.0.6",
             "source": {
@@ -343,12 +438,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/swiftmailer/swiftmailer.git",
-                "reference": "68f50da0fdd6cb0146d17d6bde20b76e0e57e7fb"
+                "reference": "1460e98b53d2f916f1b4123069c96c90844a1a4d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/68f50da0fdd6cb0146d17d6bde20b76e0e57e7fb",
-                "reference": "68f50da0fdd6cb0146d17d6bde20b76e0e57e7fb",
+                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/1460e98b53d2f916f1b4123069c96c90844a1a4d",
+                "reference": "1460e98b53d2f916f1b4123069c96c90844a1a4d",
                 "shasum": ""
             },
             "require": {
@@ -388,7 +483,7 @@
                 "mail",
                 "mailer"
             ],
-            "time": "2016-05-01 08:46:16"
+            "time": "2016-05-11 12:36:48"
         },
         {
             "name": "yiisoft/yii2",
@@ -396,12 +491,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-framework.git",
-                "reference": "b29dd42dc3fcf69e862876c93e701b3d47765ab4"
+                "reference": "13ad09ee1ce299fd11797142d298aaf39f1d3a2d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/b29dd42dc3fcf69e862876c93e701b3d47765ab4",
-                "reference": "b29dd42dc3fcf69e862876c93e701b3d47765ab4",
+                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/13ad09ee1ce299fd11797142d298aaf39f1d3a2d",
+                "reference": "13ad09ee1ce299fd11797142d298aaf39f1d3a2d",
                 "shasum": ""
             },
             "require": {
@@ -482,7 +577,7 @@
                 "framework",
                 "yii2"
             ],
-            "time": "2016-05-03 12:01:33"
+            "time": "2016-05-11 12:14:36"
         },
         {
             "name": "yiisoft/yii2-bootstrap",
@@ -716,12 +811,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/fzaninotto/Faker.git",
-                "reference": "120198f907231348a29cbcb362ec4d41ea22c1dc"
+                "reference": "191fc2b648e1b00ad4725fcae0ab0729537725c8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fzaninotto/Faker/zipball/120198f907231348a29cbcb362ec4d41ea22c1dc",
-                "reference": "120198f907231348a29cbcb362ec4d41ea22c1dc",
+                "url": "https://api.github.com/repos/fzaninotto/Faker/zipball/191fc2b648e1b00ad4725fcae0ab0729537725c8",
+                "reference": "191fc2b648e1b00ad4725fcae0ab0729537725c8",
                 "shasum": ""
             },
             "require": {
@@ -758,7 +853,7 @@
                 "faker",
                 "fixtures"
             ],
-            "time": "2016-05-02 21:13:20"
+            "time": "2016-05-10 09:22:13"
         },
         {
             "name": "phpspec/php-diff",

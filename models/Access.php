@@ -74,4 +74,18 @@ class Access extends \yii\db\ActiveRecord
     {
         return new \app\models\query\AccessQuery(get_called_class());
     }
+    /**
+     * Before save condition allows to set user_owner id to current user id
+     * @param bool $insert
+     * @return bool
+     */
+    public function beforeSave ($insert)
+    {
+        if ($this->getIsNewRecord())
+        {
+            $this->user_owner = Yii::$app->user->id;
+        }
+        parent::beforeSave($insert);
+        return true;
+    }
 }

@@ -57,7 +57,20 @@ class Calendar extends \yii\db\ActiveRecord
     {
         return $this->hasOne(User::className(), ['id' => 'creator']);
     }
-
+      /**
+     * Before save new note creator is current user
+     * @param bool $insert
+     * @return bool
+     */
+    public function beforeSave ($insert)
+    {
+        if ($this->getIsNewRecord())
+        {
+            $this->creator = Yii::$app->user->id;
+        }
+        parent::beforeSave($insert);
+        return true;
+    }
     /**
      * @inheritdoc
      * @return \app\models\query\CalendarQuery the active query used by this AR class.
